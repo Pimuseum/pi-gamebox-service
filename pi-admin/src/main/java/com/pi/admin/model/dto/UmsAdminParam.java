@@ -26,6 +26,6 @@ public class UmsAdminParam {
     private String email;
     @ApiModelProperty(value = "用户昵称")
     private String nickName;
-    @ApiModelProperty(value = "备注")
+    @ApiModelProperty(value = "微信id")
     private String note;
 }

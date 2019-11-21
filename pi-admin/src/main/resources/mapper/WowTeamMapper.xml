@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pi.admin.mapper.WowTeamMapper" >
+  <resultMap id="BaseResultMap" type="com.pi.admin.model.wow.WowTeam" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="team_name" property="teamName" jdbcType="VARCHAR" />
+    <result column="team_desc" property="teamDesc" jdbcType="VARCHAR" />
+    <result column="team_notice" property="teamNotice" jdbcType="VARCHAR" />
+    <result column="team_pic" property="teamPic" jdbcType="VARCHAR" />
+    <result column="team_creator" property="teamCreator" jdbcType="VARCHAR" />
+    <result column="team_create_time" property="teamCreateTime" jdbcType="TIMESTAMP" />
+    <result column="del" property="del" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, team_name, team_desc, team_notice, team_pic, team_creator, team_create_time, 
+    del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pi.admin.model.wow.WowTeamExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wow_team
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from wow_team
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from wow_team
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pi.admin.model.wow.WowTeamExample" >
+    delete from wow_team
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pi.admin.model.wow.WowTeam" >
+    insert into wow_team (id, team_name, team_desc, 
+      team_notice, team_pic, team_creator, 
+      team_create_time, del)
+    values (#{id,jdbcType=BIGINT}, #{teamName,jdbcType=VARCHAR}, #{teamDesc,jdbcType=VARCHAR}, 
+      #{teamNotice,jdbcType=VARCHAR}, #{teamPic,jdbcType=VARCHAR}, #{teamCreator,jdbcType=VARCHAR}, 
+      #{teamCreateTime,jdbcType=TIMESTAMP}, #{del,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pi.admin.model.wow.WowTeam" >
+    insert into wow_team
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="teamName != null" >
+        team_name,
+      </if>
+      <if test="teamDesc != null" >
+        team_desc,
+      </if>
+      <if test="teamNotice != null" >
+        team_notice,
+      </if>
+      <if test="teamPic != null" >
+        team_pic,
+      </if>
+      <if test="teamCreator != null" >
+        team_creator,
+      </if>
+      <if test="teamCreateTime != null" >
+        team_create_time,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="teamName != null" >
+        #{teamName,jdbcType=VARCHAR},
+      </if>
+      <if test="teamDesc != null" >
+        #{teamDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="teamNotice != null" >
+        #{teamNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="teamPic != null" >
+        #{teamPic,jdbcType=VARCHAR},
+      </if>
+      <if test="teamCreator != null" >
+        #{teamCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="teamCreateTime != null" >
+        #{teamCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pi.admin.model.wow.WowTeamExample" resultType="java.lang.Integer" >
+    select count(*) from wow_team
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wow_team
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.teamName != null" >
+        team_name = #{record.teamName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teamDesc != null" >
+        team_desc = #{record.teamDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teamNotice != null" >
+        team_notice = #{record.teamNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teamPic != null" >
+        team_pic = #{record.teamPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teamCreator != null" >
+        team_creator = #{record.teamCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teamCreateTime != null" >
+        team_create_time = #{record.teamCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.del != null" >
+        del = #{record.del,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wow_team
+    set id = #{record.id,jdbcType=BIGINT},
+      team_name = #{record.teamName,jdbcType=VARCHAR},
+      team_desc = #{record.teamDesc,jdbcType=VARCHAR},
+      team_notice = #{record.teamNotice,jdbcType=VARCHAR},
+      team_pic = #{record.teamPic,jdbcType=VARCHAR},
+      team_creator = #{record.teamCreator,jdbcType=VARCHAR},
+      team_create_time = #{record.teamCreateTime,jdbcType=TIMESTAMP},
+      del = #{record.del,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pi.admin.model.wow.WowTeam" >
+    update wow_team
+    <set >
+      <if test="teamName != null" >
+        team_name = #{teamName,jdbcType=VARCHAR},
+      </if>
+      <if test="teamDesc != null" >
+        team_desc = #{teamDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="teamNotice != null" >
+        team_notice = #{teamNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="teamPic != null" >
+        team_pic = #{teamPic,jdbcType=VARCHAR},
+      </if>
+      <if test="teamCreator != null" >
+        team_creator = #{teamCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="teamCreateTime != null" >
+        team_create_time = #{teamCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null" >
+        del = #{del,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pi.admin.model.wow.WowTeam" >
+    update wow_team
+    set team_name = #{teamName,jdbcType=VARCHAR},
+      team_desc = #{teamDesc,jdbcType=VARCHAR},
+      team_notice = #{teamNotice,jdbcType=VARCHAR},
+      team_pic = #{teamPic,jdbcType=VARCHAR},
+      team_creator = #{teamCreator,jdbcType=VARCHAR},
+      team_create_time = #{teamCreateTime,jdbcType=TIMESTAMP},
+      del = #{del,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

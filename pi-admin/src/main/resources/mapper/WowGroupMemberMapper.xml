@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pi.admin.mapper.WowGroupMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.pi.admin.model.wow.WowGroupMember" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="wower_id" property="wowerId" jdbcType="BIGINT" />
+    <result column="group_id" property="groupId" jdbcType="BIGINT" />
+    <result column="group_duty_type" property="groupDutyType" jdbcType="TINYINT" />
+    <result column="plan_begin_playtime" property="planBeginPlaytime" jdbcType="TIMESTAMP" />
+    <result column="plan_end_playtime" property="planEndPlaytime" jdbcType="TIMESTAMP" />
+    <result column="desc" property="desc" jdbcType="VARCHAR" />
+    <result column="group_genius" property="groupGenius" jdbcType="VARCHAR" />
+    <result column="del" property="del" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, wower_id, group_id, group_duty_type, plan_begin_playtime, plan_end_playtime, 
+    desc, group_genius, del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pi.admin.model.wow.WowGroupMemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wow_group_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from wow_group_member
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from wow_group_member
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pi.admin.model.wow.WowGroupMemberExample" >
+    delete from wow_group_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pi.admin.model.wow.WowGroupMember" >
+    insert into wow_group_member (id, wower_id, group_id, 
+      group_duty_type, plan_begin_playtime, plan_end_playtime, 
+      desc, group_genius, del
+      )
+    values (#{id,jdbcType=BIGINT}, #{wowerId,jdbcType=BIGINT}, #{groupId,jdbcType=BIGINT}, 
+      #{groupDutyType,jdbcType=TINYINT}, #{planBeginPlaytime,jdbcType=TIMESTAMP}, #{planEndPlaytime,jdbcType=TIMESTAMP}, 
+      #{desc,jdbcType=VARCHAR}, #{groupGenius,jdbcType=VARCHAR}, #{del,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pi.admin.model.wow.WowGroupMember" >
+    insert into wow_group_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="wowerId != null" >
+        wower_id,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="groupDutyType != null" >
+        group_duty_type,
+      </if>
+      <if test="planBeginPlaytime != null" >
+        plan_begin_playtime,
+      </if>
+      <if test="planEndPlaytime != null" >
+        plan_end_playtime,
+      </if>
+      <if test="desc != null" >
+        desc,
+      </if>
+      <if test="groupGenius != null" >
+        group_genius,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="wowerId != null" >
+        #{wowerId,jdbcType=BIGINT},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=BIGINT},
+      </if>
+      <if test="groupDutyType != null" >
+        #{groupDutyType,jdbcType=TINYINT},
+      </if>
+      <if test="planBeginPlaytime != null" >
+        #{planBeginPlaytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="planEndPlaytime != null" >
+        #{planEndPlaytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="groupGenius != null" >
+        #{groupGenius,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pi.admin.model.wow.WowGroupMemberExample" resultType="java.lang.Integer" >
+    select count(*) from wow_group_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wow_group_member
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.wowerId != null" >
+        wower_id = #{record.wowerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.groupId != null" >
+        group_id = #{record.groupId,jdbcType=BIGINT},
+      </if>
+      <if test="record.groupDutyType != null" >
+        group_duty_type = #{record.groupDutyType,jdbcType=TINYINT},
+      </if>
+      <if test="record.planBeginPlaytime != null" >
+        plan_begin_playtime = #{record.planBeginPlaytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.planEndPlaytime != null" >
+        plan_end_playtime = #{record.planEndPlaytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.desc != null" >
+        desc = #{record.desc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupGenius != null" >
+        group_genius = #{record.groupGenius,jdbcType=VARCHAR},
+      </if>
+      <if test="record.del != null" >
+        del = #{record.del,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wow_group_member
+    set id = #{record.id,jdbcType=BIGINT},
+      wower_id = #{record.wowerId,jdbcType=BIGINT},
+      group_id = #{record.groupId,jdbcType=BIGINT},
+      group_duty_type = #{record.groupDutyType,jdbcType=TINYINT},
+      plan_begin_playtime = #{record.planBeginPlaytime,jdbcType=TIMESTAMP},
+      plan_end_playtime = #{record.planEndPlaytime,jdbcType=TIMESTAMP},
+      desc = #{record.desc,jdbcType=VARCHAR},
+      group_genius = #{record.groupGenius,jdbcType=VARCHAR},
+      del = #{record.del,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pi.admin.model.wow.WowGroupMember" >
+    update wow_group_member
+    <set >
+      <if test="wowerId != null" >
+        wower_id = #{wowerId,jdbcType=BIGINT},
+      </if>
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=BIGINT},
+      </if>
+      <if test="groupDutyType != null" >
+        group_duty_type = #{groupDutyType,jdbcType=TINYINT},
+      </if>
+      <if test="planBeginPlaytime != null" >
+        plan_begin_playtime = #{planBeginPlaytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="planEndPlaytime != null" >
+        plan_end_playtime = #{planEndPlaytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desc != null" >
+        desc = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="groupGenius != null" >
+        group_genius = #{groupGenius,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        del = #{del,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pi.admin.model.wow.WowGroupMember" >
+    update wow_group_member
+    set wower_id = #{wowerId,jdbcType=BIGINT},
+      group_id = #{groupId,jdbcType=BIGINT},
+      group_duty_type = #{groupDutyType,jdbcType=TINYINT},
+      plan_begin_playtime = #{planBeginPlaytime,jdbcType=TIMESTAMP},
+      plan_end_playtime = #{planEndPlaytime,jdbcType=TIMESTAMP},
+      desc = #{desc,jdbcType=VARCHAR},
+      group_genius = #{groupGenius,jdbcType=VARCHAR},
+      del = #{del,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

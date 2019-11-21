@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pi.admin.mapper.WowerInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.pi.admin.model.wow.WowerInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="wower_name" property="wowerName" jdbcType="VARCHAR" />
+    <result column="wx_user_id" property="wxUserId" jdbcType="VARCHAR" />
+    <result column="wower_profession_type" property="wowerProfessionType" jdbcType="VARCHAR" />
+    <result column="wower_equipment_level" property="wowerEquipmentLevel" jdbcType="INTEGER" />
+    <result column="wower_head_pic" property="wowerHeadPic" jdbcType="VARCHAR" />
+    <result column="desc" property="desc" jdbcType="VARCHAR" />
+    <result column="del" property="del" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, wower_name, wx_user_id, wower_profession_type, wower_equipment_level, wower_head_pic, 
+    desc, del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pi.admin.model.wow.WowerInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wower_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from wower_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from wower_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pi.admin.model.wow.WowerInfoExample" >
+    delete from wower_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pi.admin.model.wow.WowerInfo" >
+    insert into wower_info (id, wower_name, wx_user_id, 
+      wower_profession_type, wower_equipment_level, 
+      wower_head_pic, desc, del
+      )
+    values (#{id,jdbcType=BIGINT}, #{wowerName,jdbcType=VARCHAR}, #{wxUserId,jdbcType=VARCHAR}, 
+      #{wowerProfessionType,jdbcType=VARCHAR}, #{wowerEquipmentLevel,jdbcType=INTEGER}, 
+      #{wowerHeadPic,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, #{del,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pi.admin.model.wow.WowerInfo" >
+    insert into wower_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="wowerName != null" >
+        wower_name,
+      </if>
+      <if test="wxUserId != null" >
+        wx_user_id,
+      </if>
+      <if test="wowerProfessionType != null" >
+        wower_profession_type,
+      </if>
+      <if test="wowerEquipmentLevel != null" >
+        wower_equipment_level,
+      </if>
+      <if test="wowerHeadPic != null" >
+        wower_head_pic,
+      </if>
+      <if test="desc != null" >
+        desc,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="wowerName != null" >
+        #{wowerName,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserId != null" >
+        #{wxUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="wowerProfessionType != null" >
+        #{wowerProfessionType,jdbcType=VARCHAR},
+      </if>
+      <if test="wowerEquipmentLevel != null" >
+        #{wowerEquipmentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="wowerHeadPic != null" >
+        #{wowerHeadPic,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pi.admin.model.wow.WowerInfoExample" resultType="java.lang.Integer" >
+    select count(*) from wower_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wower_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.wowerName != null" >
+        wower_name = #{record.wowerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxUserId != null" >
+        wx_user_id = #{record.wxUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wowerProfessionType != null" >
+        wower_profession_type = #{record.wowerProfessionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wowerEquipmentLevel != null" >
+        wower_equipment_level = #{record.wowerEquipmentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.wowerHeadPic != null" >
+        wower_head_pic = #{record.wowerHeadPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.desc != null" >
+        desc = #{record.desc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.del != null" >
+        del = #{record.del,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wower_info
+    set id = #{record.id,jdbcType=BIGINT},
+      wower_name = #{record.wowerName,jdbcType=VARCHAR},
+      wx_user_id = #{record.wxUserId,jdbcType=VARCHAR},
+      wower_profession_type = #{record.wowerProfessionType,jdbcType=VARCHAR},
+      wower_equipment_level = #{record.wowerEquipmentLevel,jdbcType=INTEGER},
+      wower_head_pic = #{record.wowerHeadPic,jdbcType=VARCHAR},
+      desc = #{record.desc,jdbcType=VARCHAR},
+      del = #{record.del,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pi.admin.model.wow.WowerInfo" >
+    update wower_info
+    <set >
+      <if test="wowerName != null" >
+        wower_name = #{wowerName,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserId != null" >
+        wx_user_id = #{wxUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="wowerProfessionType != null" >
+        wower_profession_type = #{wowerProfessionType,jdbcType=VARCHAR},
+      </if>
+      <if test="wowerEquipmentLevel != null" >
+        wower_equipment_level = #{wowerEquipmentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="wowerHeadPic != null" >
+        wower_head_pic = #{wowerHeadPic,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        desc = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        del = #{del,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pi.admin.model.wow.WowerInfo" >
+    update wower_info
+    set wower_name = #{wowerName,jdbcType=VARCHAR},
+      wx_user_id = #{wxUserId,jdbcType=VARCHAR},
+      wower_profession_type = #{wowerProfessionType,jdbcType=VARCHAR},
+      wower_equipment_level = #{wowerEquipmentLevel,jdbcType=INTEGER},
+      wower_head_pic = #{wowerHeadPic,jdbcType=VARCHAR},
+      desc = #{desc,jdbcType=VARCHAR},
+      del = #{del,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

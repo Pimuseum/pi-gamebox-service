@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pi.admin.mapper.WowGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.pi.admin.model.wow.WowGroup" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="group_Name" property="groupName" jdbcType="VARCHAR" />
+    <result column="group_desc" property="groupDesc" jdbcType="VARCHAR" />
+    <result column="group_num" property="groupNum" jdbcType="INTEGER" />
+    <result column="group_join_num" property="groupJoinNum" jdbcType="INTEGER" />
+    <result column="group_dkp_rule" property="groupDkpRule" jdbcType="VARCHAR" />
+    <result column="group_begin_time" property="groupBeginTime" jdbcType="TIMESTAMP" />
+    <result column="group_end_time" property="groupEndTime" jdbcType="TIMESTAMP" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="effect" property="effect" jdbcType="TINYINT" />
+    <result column="settlement" property="settlement" jdbcType="TINYINT" />
+    <result column="leader_custom" property="leaderCustom" jdbcType="VARCHAR" />
+    <result column="del" property="del" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, group_Name, group_desc, group_num, group_join_num, group_dkp_rule, group_begin_time, 
+    group_end_time, creater, create_time, update_time, effect, settlement, leader_custom, 
+    del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pi.admin.model.wow.WowGroupExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wow_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from wow_group
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from wow_group
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pi.admin.model.wow.WowGroupExample" >
+    delete from wow_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pi.admin.model.wow.WowGroup" >
+    insert into wow_group (id, group_Name, group_desc, 
+      group_num, group_join_num, group_dkp_rule, 
+      group_begin_time, group_end_time, creater, 
+      create_time, update_time, effect, 
+      settlement, leader_custom, del
+      )
+    values (#{id,jdbcType=BIGINT}, #{groupName,jdbcType=VARCHAR}, #{groupDesc,jdbcType=VARCHAR}, 
+      #{groupNum,jdbcType=INTEGER}, #{groupJoinNum,jdbcType=INTEGER}, #{groupDkpRule,jdbcType=VARCHAR}, 
+      #{groupBeginTime,jdbcType=TIMESTAMP}, #{groupEndTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{effect,jdbcType=TINYINT}, 
+      #{settlement,jdbcType=TINYINT}, #{leaderCustom,jdbcType=VARCHAR}, #{del,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pi.admin.model.wow.WowGroup" >
+    insert into wow_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="groupName != null" >
+        group_Name,
+      </if>
+      <if test="groupDesc != null" >
+        group_desc,
+      </if>
+      <if test="groupNum != null" >
+        group_num,
+      </if>
+      <if test="groupJoinNum != null" >
+        group_join_num,
+      </if>
+      <if test="groupDkpRule != null" >
+        group_dkp_rule,
+      </if>
+      <if test="groupBeginTime != null" >
+        group_begin_time,
+      </if>
+      <if test="groupEndTime != null" >
+        group_end_time,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="effect != null" >
+        effect,
+      </if>
+      <if test="settlement != null" >
+        settlement,
+      </if>
+      <if test="leaderCustom != null" >
+        leader_custom,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="groupName != null" >
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupDesc != null" >
+        #{groupDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNum != null" >
+        #{groupNum,jdbcType=INTEGER},
+      </if>
+      <if test="groupJoinNum != null" >
+        #{groupJoinNum,jdbcType=INTEGER},
+      </if>
+      <if test="groupDkpRule != null" >
+        #{groupDkpRule,jdbcType=VARCHAR},
+      </if>
+      <if test="groupBeginTime != null" >
+        #{groupBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupEndTime != null" >
+        #{groupEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effect != null" >
+        #{effect,jdbcType=TINYINT},
+      </if>
+      <if test="settlement != null" >
+        #{settlement,jdbcType=TINYINT},
+      </if>
+      <if test="leaderCustom != null" >
+        #{leaderCustom,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pi.admin.model.wow.WowGroupExample" resultType="java.lang.Integer" >
+    select count(*) from wow_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wow_group
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.groupName != null" >
+        group_Name = #{record.groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupDesc != null" >
+        group_desc = #{record.groupDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupNum != null" >
+        group_num = #{record.groupNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.groupJoinNum != null" >
+        group_join_num = #{record.groupJoinNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.groupDkpRule != null" >
+        group_dkp_rule = #{record.groupDkpRule,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupBeginTime != null" >
+        group_begin_time = #{record.groupBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.groupEndTime != null" >
+        group_end_time = #{record.groupEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creater != null" >
+        creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.effect != null" >
+        effect = #{record.effect,jdbcType=TINYINT},
+      </if>
+      <if test="record.settlement != null" >
+        settlement = #{record.settlement,jdbcType=TINYINT},
+      </if>
+      <if test="record.leaderCustom != null" >
+        leader_custom = #{record.leaderCustom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.del != null" >
+        del = #{record.del,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wow_group
+    set id = #{record.id,jdbcType=BIGINT},
+      group_Name = #{record.groupName,jdbcType=VARCHAR},
+      group_desc = #{record.groupDesc,jdbcType=VARCHAR},
+      group_num = #{record.groupNum,jdbcType=INTEGER},
+      group_join_num = #{record.groupJoinNum,jdbcType=INTEGER},
+      group_dkp_rule = #{record.groupDkpRule,jdbcType=VARCHAR},
+      group_begin_time = #{record.groupBeginTime,jdbcType=TIMESTAMP},
+      group_end_time = #{record.groupEndTime,jdbcType=TIMESTAMP},
+      creater = #{record.creater,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      effect = #{record.effect,jdbcType=TINYINT},
+      settlement = #{record.settlement,jdbcType=TINYINT},
+      leader_custom = #{record.leaderCustom,jdbcType=VARCHAR},
+      del = #{record.del,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pi.admin.model.wow.WowGroup" >
+    update wow_group
+    <set >
+      <if test="groupName != null" >
+        group_Name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupDesc != null" >
+        group_desc = #{groupDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNum != null" >
+        group_num = #{groupNum,jdbcType=INTEGER},
+      </if>
+      <if test="groupJoinNum != null" >
+        group_join_num = #{groupJoinNum,jdbcType=INTEGER},
+      </if>
+      <if test="groupDkpRule != null" >
+        group_dkp_rule = #{groupDkpRule,jdbcType=VARCHAR},
+      </if>
+      <if test="groupBeginTime != null" >
+        group_begin_time = #{groupBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupEndTime != null" >
+        group_end_time = #{groupEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effect != null" >
+        effect = #{effect,jdbcType=TINYINT},
+      </if>
+      <if test="settlement != null" >
+        settlement = #{settlement,jdbcType=TINYINT},
+      </if>
+      <if test="leaderCustom != null" >
+        leader_custom = #{leaderCustom,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        del = #{del,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pi.admin.model.wow.WowGroup" >
+    update wow_group
+    set group_Name = #{groupName,jdbcType=VARCHAR},
+      group_desc = #{groupDesc,jdbcType=VARCHAR},
+      group_num = #{groupNum,jdbcType=INTEGER},
+      group_join_num = #{groupJoinNum,jdbcType=INTEGER},
+      group_dkp_rule = #{groupDkpRule,jdbcType=VARCHAR},
+      group_begin_time = #{groupBeginTime,jdbcType=TIMESTAMP},
+      group_end_time = #{groupEndTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      effect = #{effect,jdbcType=TINYINT},
+      settlement = #{settlement,jdbcType=TINYINT},
+      leader_custom = #{leaderCustom,jdbcType=VARCHAR},
+      del = #{del,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
