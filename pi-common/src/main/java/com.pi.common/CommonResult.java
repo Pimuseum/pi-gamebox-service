@@ -59,7 +59,18 @@ public class CommonResult<T> {
     public static <T> CommonResult<T> failed() {
         return failed(ResultCode.FAILED);
     }
-
+    /**
+     * 空查询返回
+     */
+    public static <T>CommonResult<T> emptyReturn(String message){
+        return new CommonResult<T>(ResultCode.SUCCESS_NULL.getCode(),message,null);
+    }
+    /**
+     * 空查询返回
+     */
+    public static <T>CommonResult<T> emptyReturn(){
+        return new CommonResult<T>(ResultCode.SUCCESS_NULL.getCode(),ResultCode.SUCCESS_NULL.getMessage(),null);
+    }
     /**
      * 参数验证失败返回结果
      */

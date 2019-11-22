@@ -1,8 +1,11 @@
 package com.pi.admin.controller;
 
+import com.pi.admin.mapper.WowMemberInfoMapper;
 import com.pi.admin.model.adminUser.UmsAdmin;
 import com.pi.admin.model.adminUser.UmsRole;
+import com.pi.admin.model.dto.MemberQuery;
 import com.pi.admin.model.dto.WowTeamParam;
+import com.pi.admin.model.wow.WowMemberInfo;
 import com.pi.admin.model.wow.WowTeam;
 import com.pi.admin.service.UmsAdminService;
 import com.pi.admin.service.WowGroupDkpService;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
  * @author Gturn
@@ -32,7 +36,6 @@ public class WowTeamLeaderController {
     private UmsAdminService adminService;
     @Autowired
     private WowTeamService wowTeamService;
-
     @Autowired
     private WowGroupDkpService wowGroupDkpService;
 
@@ -40,13 +43,19 @@ public class WowTeamLeaderController {
     @RequestMapping(value = "/creatTeam", method = RequestMethod.POST)
     public CommonResult creatTeam(@RequestBody WowTeam wowTeam) {
         Integer integer = wowTeamService.creatTeam(wowTeam);
+        if (integer.equals(0)) {
+            return CommonResult.failed("您已经有团队了！");
+        }
         return CommonResult.success(integer);
     }
 
     @ApiOperation(value = "修改团队信息")
     @RequestMapping(value = "/updateTeam", method = RequestMethod.POST)
     public CommonResult updateTeam(@RequestBody WowTeam wowTeam) {
-        Integer integer =wowTeamService.updateTeam(wowTeam);
+        Integer integer = wowTeamService.updateTeam(wowTeam);
+        if (integer.equals(0)) {
+            return CommonResult.failed("修改失败！");
+        }
         return CommonResult.success(integer);
     }
 
@@ -56,35 +65,38 @@ public class WowTeamLeaderController {
         String username = principal.getName();
         UmsAdmin umsAdmin = adminService.getAdminByUsername(username);
         WowTeamParam wowTeamParam = wowTeamService.teamInfo(umsAdmin.getNote());
+        if (wowTeamParam == null) {
+            return CommonResult.emptyReturn("抱歉,没有查询到对应的团队信息");
+        }
         return CommonResult.success(wowTeamParam);
     }
 
     @ApiOperation(value = "查看团成员")
     @RequestMapping(value = "/queryTeamMembers", method = RequestMethod.POST)
-    public CommonResult queryTeamMembers() {
-
-        return null;
+    public CommonResult queryTeamMembers(MemberQuery memberQuery) {
+        List<WowMemberInfo> wowMemberInfos = wowTeamService.queryTeamMembers(memberQuery);
+        return CommonResult.success(wowMemberInfos);
     }
 
     @ApiOperation(value = "修改团员信息")
     @RequestMapping(value = "/updateTeamMember", method = RequestMethod.POST)
-    public CommonResult updateTeamMember() {
-
-        return null;
+    public CommonResult updateTeamMember(WowMemberInfo wowMemberInfo) {
+        Integer integer = wowTeamService.updateTeamMember(wowMemberInfo);
+        return CommonResult.success(integer);
     }
 
     @ApiOperation(value = "删除团员信息")
     @RequestMapping(value = "/delTeamMember", method = RequestMethod.POST)
-    public CommonResult delTeamMember() {
-
-        return null;
+    public CommonResult delTeamMember(Long id) {
+        Integer integer = wowTeamService.delTeamMember(id);
+        return CommonResult.success(integer);
     }
 
     @ApiOperation(value = "管理团员DKP(奖励，扣除)")
     @RequestMapping(value = "/updateTeamMemberDKP", method = RequestMethod.POST)
-    public CommonResult updateTeamMemberDKP() {
-
-        return null;
+    public CommonResult updateTeamMemberDKP(Long id, Integer dkp,String reasonMsg) {
+        wowTeamService.updateTeamMemberDKP(id,dkp,reasonMsg);
+        return CommonResult.success(null);
     }
 
 }

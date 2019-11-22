@@ -1,5 +1,6 @@
 package com.pi.admin.model.dto;
 
+import com.pi.admin.model.wow.WowMemberInfo;
 import com.pi.admin.model.wow.WowTeam;
 
 /**
@@ -13,6 +14,15 @@ import com.pi.admin.model.wow.WowTeam;
 public class WowTeamParam extends WowTeam {
     private Integer teamMemberNum;
     private Integer teamGroupNum;
+    private WowMemberInfo leaderMemberInfo;
+
+    public WowMemberInfo getLeaderMemberInfo() {
+        return leaderMemberInfo;
+    }
+
+    public void setLeaderMemberInfo(WowMemberInfo leaderMemberInfo) {
+        this.leaderMemberInfo = leaderMemberInfo;
+    }
 
     public Integer getTeamMemberNum() {
         return teamMemberNum;

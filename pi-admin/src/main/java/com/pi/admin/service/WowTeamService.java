@@ -1,7 +1,11 @@
 package com.pi.admin.service;
 
+import com.pi.admin.model.dto.MemberQuery;
 import com.pi.admin.model.dto.WowTeamParam;
+import com.pi.admin.model.wow.WowMemberInfo;
 import com.pi.admin.model.wow.WowTeam;
+
+import java.util.List;
 
 /**
  * @author Gturn
@@ -17,4 +21,12 @@ public interface WowTeamService {
     Integer updateTeam(WowTeam wowTeam);
 
     WowTeamParam teamInfo(String note);
+
+    List<WowMemberInfo> queryTeamMembers(MemberQuery memberQuery);
+
+    void updateTeamMemberDKP(Long id, Integer dkp, String reasonMsg);
+
+    Integer updateTeamMember(WowMemberInfo wowMemberInfo);
+
+    Integer delTeamMember(Long id);
 }

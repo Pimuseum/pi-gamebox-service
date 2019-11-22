@@ -28,4 +28,6 @@ public interface WowMemberInfoMapper {
     int updateByPrimaryKeySelective(WowMemberInfo record);
 
     int updateByPrimaryKey(WowMemberInfo record);
+
+    WowMemberInfo selectByWxId(String note);
 }

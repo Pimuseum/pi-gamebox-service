@@ -320,4 +320,10 @@
       del = #{del,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="selectByWxId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from wow_member_info
+    where wx_user_id = #{note,jdbcType=VARCHAR}
+  </select>
 </mapper>
