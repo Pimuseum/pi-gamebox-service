@@ -28,7 +28,7 @@ import java.util.List;
  * @date 2019/11/21 15:02
  */
 @RestController
-@Api(tags = "PiOpenGourpDKPController", description = "亲友团管理员api")
+@Api(tags = "WowTeamLeaderController", description = "亲友团管理员api")
 @RequestMapping("/wowLeader")
 public class WowTeamLeaderController {
 
