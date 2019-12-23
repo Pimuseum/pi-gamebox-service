@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pi.admin.mapper.DkpLogMapper" >
+  <resultMap id="BaseResultMap" type="com.pi.admin.model.wow.DkpLog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="memberId" property="memberid" jdbcType="BIGINT" />
+    <result column="wow_name" property="wowName" jdbcType="VARCHAR" />
+    <result column="change_dkp_value" property="changeDkpValue" jdbcType="INTEGER" />
+    <result column="original_dkp" property="originalDkp" jdbcType="INTEGER" />
+    <result column="modified_dkp" property="modifiedDkp" jdbcType="INTEGER" />
+    <result column="change_msg" property="changeMsg" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, memberId, wow_name, change_dkp_value, original_dkp, modified_dkp, change_msg, 
+    operator
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pi.admin.model.wow.DkpLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dkp_log_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dkp_log_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dkp_log_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pi.admin.model.wow.DkpLogExample" >
+    delete from dkp_log_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pi.admin.model.wow.DkpLog" >
+    insert into dkp_log_info (id, memberId, wow_name, 
+      change_dkp_value, original_dkp, modified_dkp, 
+      change_msg, operator)
+    values (#{id,jdbcType=BIGINT}, #{memberid,jdbcType=BIGINT}, #{wowName,jdbcType=VARCHAR}, 
+      #{changeDkpValue,jdbcType=INTEGER}, #{originalDkp,jdbcType=INTEGER}, #{modifiedDkp,jdbcType=INTEGER}, 
+      #{changeMsg,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pi.admin.model.wow.DkpLog" >
+    insert into dkp_log_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="memberid != null" >
+        memberId,
+      </if>
+      <if test="wowName != null" >
+        wow_name,
+      </if>
+      <if test="changeDkpValue != null" >
+        change_dkp_value,
+      </if>
+      <if test="originalDkp != null" >
+        original_dkp,
+      </if>
+      <if test="modifiedDkp != null" >
+        modified_dkp,
+      </if>
+      <if test="changeMsg != null" >
+        change_msg,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="wowName != null" >
+        #{wowName,jdbcType=VARCHAR},
+      </if>
+      <if test="changeDkpValue != null" >
+        #{changeDkpValue,jdbcType=INTEGER},
+      </if>
+      <if test="originalDkp != null" >
+        #{originalDkp,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedDkp != null" >
+        #{modifiedDkp,jdbcType=INTEGER},
+      </if>
+      <if test="changeMsg != null" >
+        #{changeMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pi.admin.model.wow.DkpLogExample" resultType="java.lang.Integer" >
+    select count(*) from dkp_log_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dkp_log_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.memberid != null" >
+        memberId = #{record.memberid,jdbcType=BIGINT},
+      </if>
+      <if test="record.wowName != null" >
+        wow_name = #{record.wowName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changeDkpValue != null" >
+        change_dkp_value = #{record.changeDkpValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.originalDkp != null" >
+        original_dkp = #{record.originalDkp,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifiedDkp != null" >
+        modified_dkp = #{record.modifiedDkp,jdbcType=INTEGER},
+      </if>
+      <if test="record.changeMsg != null" >
+        change_msg = #{record.changeMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operator != null" >
+        operator = #{record.operator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dkp_log_info
+    set id = #{record.id,jdbcType=BIGINT},
+      memberId = #{record.memberid,jdbcType=BIGINT},
+      wow_name = #{record.wowName,jdbcType=VARCHAR},
+      change_dkp_value = #{record.changeDkpValue,jdbcType=INTEGER},
+      original_dkp = #{record.originalDkp,jdbcType=INTEGER},
+      modified_dkp = #{record.modifiedDkp,jdbcType=INTEGER},
+      change_msg = #{record.changeMsg,jdbcType=VARCHAR},
+      operator = #{record.operator,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pi.admin.model.wow.DkpLog" >
+    update dkp_log_info
+    <set >
+      <if test="memberid != null" >
+        memberId = #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="wowName != null" >
+        wow_name = #{wowName,jdbcType=VARCHAR},
+      </if>
+      <if test="changeDkpValue != null" >
+        change_dkp_value = #{changeDkpValue,jdbcType=INTEGER},
+      </if>
+      <if test="originalDkp != null" >
+        original_dkp = #{originalDkp,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedDkp != null" >
+        modified_dkp = #{modifiedDkp,jdbcType=INTEGER},
+      </if>
+      <if test="changeMsg != null" >
+        change_msg = #{changeMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pi.admin.model.wow.DkpLog" >
+    update dkp_log_info
+    set memberId = #{memberid,jdbcType=BIGINT},
+      wow_name = #{wowName,jdbcType=VARCHAR},
+      change_dkp_value = #{changeDkpValue,jdbcType=INTEGER},
+      original_dkp = #{originalDkp,jdbcType=INTEGER},
+      modified_dkp = #{modifiedDkp,jdbcType=INTEGER},
+      change_msg = #{changeMsg,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

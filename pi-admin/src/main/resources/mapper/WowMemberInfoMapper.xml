@@ -326,4 +326,23 @@
     from wow_member_info
     where wx_user_id = #{note,jdbcType=VARCHAR}
   </select>
+  <select id="queryTeamMembers" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from wow_member_info
+    <where>
+      <if test="memberQuery != null">
+        <if test="memberQuery.wowName != null">
+          wow_name = #{memberQuery.wowName}
+        </if>
+        <if test="memberQuery.teamId != null">
+          team_id = #{memberQuery.teamId}
+        </if>
+        <if test="memberQuery.teamDuty != null">
+          team_duty = #{memberQuery.teamDuty}
+        </if>
+      </if>
+      AND del = 0;
+    </where>
+  </select>
 </mapper>

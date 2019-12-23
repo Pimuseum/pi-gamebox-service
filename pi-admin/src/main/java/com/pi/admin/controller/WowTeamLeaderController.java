@@ -41,8 +41,8 @@ public class WowTeamLeaderController {
 
     @ApiOperation(value = "创建团队")
     @RequestMapping(value = "/creatTeam", method = RequestMethod.POST)
-    public CommonResult creatTeam(@RequestBody WowTeam wowTeam) {
-        Integer integer = wowTeamService.creatTeam(wowTeam);
+    public CommonResult createTeam(@RequestBody WowTeam wowTeam) {
+        Integer integer = wowTeamService.createTeam(wowTeam);
         if (integer.equals(0)) {
             return CommonResult.failed("您已经有团队了！");
         }
@@ -94,8 +94,8 @@ public class WowTeamLeaderController {
 
     @ApiOperation(value = "管理团员DKP(奖励，扣除)")
     @RequestMapping(value = "/updateTeamMemberDKP", method = RequestMethod.POST)
-    public CommonResult updateTeamMemberDKP(Long id, Integer dkp,String reasonMsg) {
-        wowTeamService.updateTeamMemberDKP(id,dkp,reasonMsg);
+    public CommonResult updateTeamMemberDKP(Long id, Integer dkp, String reasonMsg) {
+        wowTeamService.updateTeamMemberDKP(id, dkp, reasonMsg);
         return CommonResult.success(null);
     }
 

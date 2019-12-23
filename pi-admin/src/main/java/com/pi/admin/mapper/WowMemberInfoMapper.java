@@ -1,5 +1,6 @@
 package com.pi.admin.mapper;
 
+import com.pi.admin.model.dto.MemberQuery;
 import com.pi.admin.model.wow.WowMemberInfo;
 import com.pi.admin.model.wow.WowMemberInfoExample;
 import org.apache.ibatis.annotations.Param;
@@ -30,4 +31,6 @@ public interface WowMemberInfoMapper {
     int updateByPrimaryKey(WowMemberInfo record);
 
     WowMemberInfo selectByWxId(String note);
+
+    List<WowMemberInfo> queryTeamMembers(@Param("memberQuery") MemberQuery memberQuery);
 }

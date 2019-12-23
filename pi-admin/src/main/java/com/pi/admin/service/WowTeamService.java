@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 public interface WowTeamService {
-    Integer creatTeam(WowTeam wowTeam);
+    Integer createTeam(WowTeam wowTeam);
 
     Integer updateTeam(WowTeam wowTeam);
 
