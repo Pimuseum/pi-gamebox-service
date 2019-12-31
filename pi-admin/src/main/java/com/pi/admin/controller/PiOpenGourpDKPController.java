@@ -4,7 +4,9 @@ import com.github.pagehelper.Page;
 import com.pi.admin.model.dto.UmsAdminLoginParam;
 import com.pi.admin.model.wow.DkpLog;
 import com.pi.admin.model.wow.WowGroup;
+import com.pi.admin.model.wow.WowGroupMember;
 import com.pi.admin.service.WowGroupDkpService;
+import com.pi.admin.service.WowTeamService;
 import com.pi.common.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,7 +34,8 @@ public class PiOpenGourpDKPController {
 
     @Autowired
     private WowGroupDkpService wowGroupDkpService;
-
+    @Autowired
+    private WowTeamService wowTeamService;
     @ApiOperation(value = "开团-设置团DKP规则")
     @RequestMapping(value = "/openDkpGroup", method = RequestMethod.POST)
     public CommonResult openDkpGroup(WowGroup wowGroup) {
@@ -87,6 +90,13 @@ public class PiOpenGourpDKPController {
         return CommonResult.success(group);
     }
 
+    @ApiOperation(value = "修改团活动成员")
+    @RequestMapping(value = "/updateGroupMember", method = RequestMethod.POST)
+    public CommonResult updateGroupMember(WowGroupMember wowGroupMember) {
+        wowTeamService.updateGroupMember(wowGroupMember);
+        return CommonResult.success(null);
+    }
+
     @ApiOperation(value = "团活动DKP结算预览")
     @RequestMapping(value = "/settlementGroupDkpPreview", method = RequestMethod.POST)
     public CommonResult settlementGroupDkpPreview(Long gourpId) {
@@ -96,8 +106,8 @@ public class PiOpenGourpDKPController {
 
     @ApiOperation(value = "团活动DKP结算")
     @RequestMapping(value = "/settlementGroupDkp", method = RequestMethod.POST)
-    public CommonResult settlementGroupDkp(List<DkpLog> dkpLogs,String note) {
-        wowGroupDkpService.settlementGroupDkp(dkpLogs,note);
+    public CommonResult settlementGroupDkp(List<DkpLog> dkpLogs,String note , Long gourpId) {
+        wowGroupDkpService.settlementGroupDkp(dkpLogs,note,gourpId);
         return CommonResult.success(null);
     }
 

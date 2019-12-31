@@ -102,7 +102,7 @@ public class WowTeamServiceImpl implements WowTeamService {
         wowMemberInfoMapper.updateByPrimaryKey(wowMemberInfo);
         DkpLog dkpLog = new DkpLog();
         dkpLog.setChangeMsg(reasonMsg);
-        dkpLog.setMemberid(id);
+        dkpLog.setMemberId(id);
         dkpLog.setWowName(wowMemberInfo.getWowName());
         dkpLog.setChangeDkpValue(dkp);
         dkpLog.setOriginalDkp(originalDkp);
@@ -121,5 +121,56 @@ public class WowTeamServiceImpl implements WowTeamService {
         WowMemberInfo wowMemberInfo = wowMemberInfoMapper.selectByPrimaryKey(id);
         wowMemberInfo.setTeamId(null);
         return wowMemberInfoMapper.updateByPrimaryKey(wowMemberInfo);
+    }
+
+    @Override
+    public WowTeamParam queryTeamInfoById(Long id) {
+        WowTeamParam wowTeamParam = new WowTeamParam();
+        WowTeam wowTeam = wowTeamMapper.selectByPrimaryKey(id);
+        if (wowTeam != null) {
+            WowMemberInfoExample wowMemberExample = new WowMemberInfoExample();
+            WowMemberInfoExample.Criteria wowMemberExampleCriteria = wowMemberExample.createCriteria();
+            wowMemberExampleCriteria.andTeamIdEqualTo(wowTeam.getId().intValue());
+            wowMemberExampleCriteria.andDelEqualTo(false);
+            int memberCount = wowMemberInfoMapper.countByExample(wowMemberExample);
+            WowMemberInfo wowMemberInf = wowMemberInfoMapper.selectByWxId(wowTeam.getTeamCreator());
+            WowGroupExample wowGroupExample = new WowGroupExample();
+            WowGroupExample.Criteria wowGroupExampleCriteria = wowGroupExample.createCriteria();
+            wowGroupExampleCriteria.andCreaterEqualTo(wowTeam.getTeamCreator());
+            wowGroupExampleCriteria.andDelEqualTo(false);
+            int groupCount = wowGroupMapper.countByExample(wowGroupExample);
+            BeanUtils.copyProperties(wowTeam, wowTeamParam);
+            wowTeamParam.setTeamGroupNum(groupCount);
+            wowTeamParam.setTeamMemberNum(memberCount);
+            wowTeamParam.setLeaderMemberInfo(wowMemberInf);
+        } else {
+            return null;
+        }
+        return wowTeamParam;
+    }
+
+    @Override
+    public Integer createWowMemberInfo(WowMemberInfo memberInfo) {
+        return null;
+    }
+
+    @Override
+    public void updateWowMemberInfo(WowMemberInfo memberInfo) {
+
+    }
+
+    @Override
+    public Integer addGroupMember(WowGroupMember wowGroupMember) {
+        return null;
+    }
+
+    @Override
+    public void updateGroupMember(WowGroupMember wowGroupMember) {
+
+    }
+
+    @Override
+    public MemberDkpInfo myGroupDkpInfo(Long memberId) {
+        return null;
     }
 }

@@ -44,7 +44,7 @@ public class WowTeamLeaderController {
     public CommonResult createTeam(@RequestBody WowTeam wowTeam) {
         Integer integer = wowTeamService.createTeam(wowTeam);
         if (integer.equals(0)) {
-            return CommonResult.failed("您已经有团队了！");
+            return CommonResult.failed("您已经创建了团队了！");
         }
         return CommonResult.success(integer);
     }

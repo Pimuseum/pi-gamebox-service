@@ -3,7 +3,7 @@ package com.pi.admin.model.wow;
 public class DkpLog {
     private Long id;
 
-    private Long memberid;
+    private Long memberId;
 
     private String wowName;
 
@@ -25,12 +25,12 @@ public class DkpLog {
         this.id = id;
     }
 
-    public Long getMemberid() {
-        return memberid;
+    public Long getMemberId() {
+        return memberId;
     }
 
-    public void setMemberid(Long memberid) {
-        this.memberid = memberid;
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
     }
 
     public String getWowName() {

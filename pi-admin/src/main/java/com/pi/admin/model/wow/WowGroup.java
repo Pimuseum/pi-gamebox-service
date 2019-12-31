@@ -4,42 +4,53 @@ import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.Date;
+import java.util.List;
 
 public class WowGroup {
     private Long id;
-    @ApiModelProperty(value = "团名称", required = true)
+    @ApiModelProperty(value = "团名称")
     @NotEmpty(message = "团名称不能为空")
     private String groupName;
-    @ApiModelProperty(value = "团描述", required = true)
+    @ApiModelProperty(value = "团描述")
     private String groupDesc;
-    @ApiModelProperty(value = "成团数", required = true)
+    @ApiModelProperty(value = "成团数")
     @NotEmpty(message = "成团数不能为空")
     private Integer groupNum;
-    @ApiModelProperty(value = "已报名人数", required = true)
+    @ApiModelProperty(value = "已报名人数")
     private Integer groupJoinNum;
-    @ApiModelProperty(value = "团DKP规则", required = true)
+    @ApiModelProperty(value = "团DKP规则")
     private String groupDkpRule;
-    @ApiModelProperty(value = "活动团开始时间", required = true)
+    @ApiModelProperty(value = "活动团开始时间")
     @NotEmpty(message = "活动团开始时间不能为空")
     private Date groupBeginTime;
-    @ApiModelProperty(value = "活动团结束时间", required = true)
+    @ApiModelProperty(value = "活动团结束时间")
     @NotEmpty(message = "活动团结束时间不能为空")
     private Date groupEndTime;
-    @ApiModelProperty(value = "创建者", required = true)
+    @ApiModelProperty(value = "创建者")
     @NotEmpty(message = "创建者不能为空")
     private String creater;
-    @ApiModelProperty(value = "创建时间", required = true)
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
-    @ApiModelProperty(value = "修改时间", required = true)
+    @ApiModelProperty(value = "修改时间")
     private Date updateTime;
-    @ApiModelProperty(value = "是否有效", required = true)
+    @ApiModelProperty(value = "是否有效")
     private Boolean effect = true;
-    @ApiModelProperty(value = "是否结算", required = true)
+    @ApiModelProperty(value = "是否结算")
     private Boolean settlement = false;
-    @ApiModelProperty(value = "团长自定义Dkp", required = true)
+    @ApiModelProperty(value = "团长自定义Dkp")
     private String leaderCustom;
-    @ApiModelProperty(value = "是否删除", required = true)
+    @ApiModelProperty(value = "是否删除")
     private Boolean del;
+
+    private List<WowGroupMember> members;
+
+    public List<WowGroupMember> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<WowGroupMember> members) {
+        this.members = members;
+    }
 
     public Long getId() {
         return id;

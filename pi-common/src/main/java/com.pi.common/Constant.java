@@ -10,5 +10,5 @@ package com.pi.common;
 
 public class Constant {
     public static String SYS_OPERATE_CODE = "wow_sys";
-    public static String TEAM_LEADER_OPERATE_CODE = "wow_team_leader";
+    public static String TEAM_LEADER_OPERATE_CODE = "wow_team_leader: ";
 }

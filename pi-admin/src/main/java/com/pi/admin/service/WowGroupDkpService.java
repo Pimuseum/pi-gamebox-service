@@ -28,5 +28,5 @@ public interface WowGroupDkpService {
 
     List<DkpLog> settlementGroupDkpPreview(Long gourpId);
 
-    void settlementGroupDkp(List<DkpLog> dkpLogs, String note);
+    void settlementGroupDkp(List<DkpLog> dkpLogs, String note,Long gourpId);
 }

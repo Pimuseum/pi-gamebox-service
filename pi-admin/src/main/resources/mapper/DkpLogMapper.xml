@@ -3,7 +3,7 @@
 <mapper namespace="com.pi.admin.mapper.DkpLogMapper" >
   <resultMap id="BaseResultMap" type="com.pi.admin.model.wow.DkpLog" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="memberId" property="memberid" jdbcType="BIGINT" />
+    <result column="member_id" property="memberId" jdbcType="BIGINT" />
     <result column="wow_name" property="wowName" jdbcType="VARCHAR" />
     <result column="change_dkp_value" property="changeDkpValue" jdbcType="INTEGER" />
     <result column="original_dkp" property="originalDkp" jdbcType="INTEGER" />
@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, memberId, wow_name, change_dkp_value, original_dkp, modified_dkp, change_msg, 
+    id, member_id, wow_name, change_dkp_value, original_dkp, modified_dkp, change_msg, 
     operator
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pi.admin.model.wow.DkpLogExample" >
@@ -104,10 +104,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pi.admin.model.wow.DkpLog" >
-    insert into dkp_log_info (id, memberId, wow_name, 
+    insert into dkp_log_info (id, member_id, wow_name, 
       change_dkp_value, original_dkp, modified_dkp, 
       change_msg, operator)
-    values (#{id,jdbcType=BIGINT}, #{memberid,jdbcType=BIGINT}, #{wowName,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{memberId,jdbcType=BIGINT}, #{wowName,jdbcType=VARCHAR}, 
       #{changeDkpValue,jdbcType=INTEGER}, #{originalDkp,jdbcType=INTEGER}, #{modifiedDkp,jdbcType=INTEGER}, 
       #{changeMsg,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR})
   </insert>
@@ -117,8 +117,8 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="memberid != null" >
-        memberId,
+      <if test="memberId != null" >
+        member_id,
       </if>
       <if test="wowName != null" >
         wow_name,
@@ -143,8 +143,8 @@
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="memberid != null" >
-        #{memberid,jdbcType=BIGINT},
+      <if test="memberId != null" >
+        #{memberId,jdbcType=BIGINT},
       </if>
       <if test="wowName != null" >
         #{wowName,jdbcType=VARCHAR},
@@ -178,8 +178,8 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.memberid != null" >
-        memberId = #{record.memberid,jdbcType=BIGINT},
+      <if test="record.memberId != null" >
+        member_id = #{record.memberId,jdbcType=BIGINT},
       </if>
       <if test="record.wowName != null" >
         wow_name = #{record.wowName,jdbcType=VARCHAR},
@@ -207,7 +207,7 @@
   <update id="updateByExample" parameterType="map" >
     update dkp_log_info
     set id = #{record.id,jdbcType=BIGINT},
-      memberId = #{record.memberid,jdbcType=BIGINT},
+      member_id = #{record.memberId,jdbcType=BIGINT},
       wow_name = #{record.wowName,jdbcType=VARCHAR},
       change_dkp_value = #{record.changeDkpValue,jdbcType=INTEGER},
       original_dkp = #{record.originalDkp,jdbcType=INTEGER},
@@ -221,8 +221,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.pi.admin.model.wow.DkpLog" >
     update dkp_log_info
     <set >
-      <if test="memberid != null" >
-        memberId = #{memberid,jdbcType=BIGINT},
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=BIGINT},
       </if>
       <if test="wowName != null" >
         wow_name = #{wowName,jdbcType=VARCHAR},
@@ -247,7 +247,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.pi.admin.model.wow.DkpLog" >
     update dkp_log_info
-    set memberId = #{memberid,jdbcType=BIGINT},
+    set member_id = #{memberId,jdbcType=BIGINT},
       wow_name = #{wowName,jdbcType=VARCHAR},
       change_dkp_value = #{changeDkpValue,jdbcType=INTEGER},
       original_dkp = #{originalDkp,jdbcType=INTEGER},

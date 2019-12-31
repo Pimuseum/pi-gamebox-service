@@ -2,6 +2,8 @@ package com.pi.admin.service;
 
 import com.pi.admin.model.dto.MemberQuery;
 import com.pi.admin.model.dto.WowTeamParam;
+import com.pi.admin.model.wow.MemberDkpInfo;
+import com.pi.admin.model.wow.WowGroupMember;
 import com.pi.admin.model.wow.WowMemberInfo;
 import com.pi.admin.model.wow.WowTeam;
 
@@ -29,4 +31,16 @@ public interface WowTeamService {
     Integer updateTeamMember(WowMemberInfo wowMemberInfo);
 
     Integer delTeamMember(Long id);
+
+    WowTeamParam queryTeamInfoById(Long id);
+
+    Integer createWowMemberInfo(WowMemberInfo memberInfo);
+
+    void updateWowMemberInfo(WowMemberInfo memberInfo);
+
+    Integer addGroupMember(WowGroupMember wowGroupMember);
+
+    void updateGroupMember(WowGroupMember wowGroupMember);
+
+    MemberDkpInfo myGroupDkpInfo(Long memberId);
 }
